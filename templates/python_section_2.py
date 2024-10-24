@@ -11,31 +11,9 @@ def calculate_distance_matrix(df)->pd.DataFrame():
     Returns:
         pandas.DataFrame: Distance matrix
     """
-    
-   
-    locations = pd.concat([df['id_start'], df['id_end']]).unique()
-    locations.sort()
+    # Write your logic here
 
-    
-    dist_matrix = pd.DataFrame(np.inf, index=locations, columns=locations)
-    np.fill_diagonal(dist_matrix.values, 0)
-
-    
-    for _, row in df.iterrows():
-        id_a, id_b, distance = row['id_start'], row['id_end'], row['distance']
-        dist_matrix.loc[id_a, id_b] = distance
-        dist_matrix.loc[id_b, id_a] = distance  
-    
-    
-    for k in locations:
-        for i in locations:
-            for j in locations:
-                if dist_matrix.loc[i, j] > dist_matrix.loc[i, k] + dist_matrix.loc[k, j]:
-                    dist_matrix.loc[i, j] = dist_matrix.loc[i, k] + dist_matrix.loc[k, j]
-
-    return dist_matrix
-
-
+    return df
 
 
 def unroll_distance_matrix(df)->pd.DataFrame():
@@ -48,17 +26,9 @@ def unroll_distance_matrix(df)->pd.DataFrame():
     Returns:
         pandas.DataFrame: Unrolled DataFrame containing columns 'id_start', 'id_end', and 'distance'.
     """
-    
-    unroll = distance_df.stack().reset_index()
+    # Write your logic here
 
-    
-    unroll.columns = ['id_start', 'id_end', 'distance']
-
-    
-    result_df = unroll[unroll['id_start'] != unroll['id_end']].reset_index(drop=True)
-
-    return result_df
-
+    return df
 
 
 def find_ids_within_ten_percentage_threshold(df, reference_id)->pd.DataFrame():
@@ -73,31 +43,9 @@ def find_ids_within_ten_percentage_threshold(df, reference_id)->pd.DataFrame():
         pandas.DataFrame: DataFrame with IDs whose average distance is within the specified percentage threshold
                           of the reference ID's average distance.
     """
-    
-    reference_distances = df[df['id_start'] == reference_value]['distance']
-    
-    
-    avg_reference_distance = reference_distances.mean()
-    
-    
-    lower_bound = avg_reference_distance * 0.9
-    upper_bound = avg_reference_distance * 1.1
-    
-    
-    avg_distances = df.groupby('id_start')['distance'].mean().reset_index()
-    
-    
-    within_threshold = avg_distances[
-        (avg_distances['distance'] >= lower_bound) &
-        (avg_distances['distance'] <= upper_bound)
-    ]
-    
-    
-    result = within_threshold['id_start'].sort_values().tolist()
-    
-    return result
+    # Write your logic here
 
-
+    return df
 
 
 def calculate_toll_rate(df)->pd.DataFrame():
@@ -110,22 +58,7 @@ def calculate_toll_rate(df)->pd.DataFrame():
     Returns:
         pandas.DataFrame
     """
-           
-     rate_coefficients = {
-        'moto': 0.8,
-        'car': 1.2,
-        'rv': 1.5,
-        'bus': 2.2,
-        'truck': 3.6
-    }
-    
-    
-    df['moto'] = df['distance'] * rate_coefficients['moto']
-    df['car'] = df['distance'] * rate_coefficients['car']
-    df['rv'] = df['distance'] * rate_coefficients['rv']
-    df['bus'] = df['distance'] * rate_coefficients['bus']
-    df['truck'] = df['distance'] * rate_coefficients['truck']
-    
+    # Wrie your logic here
 
     return df
 
@@ -140,7 +73,6 @@ def calculate_time_based_toll_rates(df)->pd.DataFrame():
     Returns:
         pandas.DataFrame
     """
-  
-    
+    # Write your logic here
 
     return df
